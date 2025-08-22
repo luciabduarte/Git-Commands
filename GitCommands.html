@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Git — Guia Dinâmico e Criativo</title>
+  <meta name="description" content="Um guia interativo de comandos Git com exemplos práticos, dicas e mini‑quiz." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .kbd{border:1px solid rgba(0,0,0,.1); border-bottom-width:2px; padding:.15rem .35rem; border-radius:.4rem; background:rgba(0,0,0,.03)}
+    .glass{backdrop-filter: blur(8px); background: color-mix(in oklab, white, transparent 30%)}
+    .code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+    .accent{--tw-shadow: 0 10px 30px -10px rgba(22,163,74,.35)}
+  </style>
+</head>
+<body class="bg-gradient-to-b from-emerald-50 to-white text-slate-800">
+  <!-- HEADER -->
+  <header class="sticky top-0 z-10 glass border-b border-emerald-100">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center gap-3 justify-between">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-md">G</span>
+        <h1 class="text-xl md:text-2xl font-bold text-emerald-700">Git — Guia Dinâmico</h1>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="modeBtn" class="px-3 py-1.5 text-sm rounded-lg border border-emerald-200 hover:bg-emerald-100">🌙 Modo escuro</button>
+        <a href="#cheatsheet" class="px-3 py-1.5 text-sm rounded-lg border border-emerald-200 hover:bg-emerald-100">Cheat‑sheet</a>
+        <a href="#quiz" class="px-3 py-1.5 text-sm rounded-lg border border-emerald-200 hover:bg-emerald-100">Mini‑quiz</a>
+      </div>
+
+      <div class="basis-full"></div>
+      <div class="relative w-full md:w-auto md:min-w-[380px]">
+        <input id="search" class="w-full md:w-[420px] rounded-xl border border-emerald-300/70 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Pesquisar comandos (ex.: branch, rebase, stash)" />
+        <svg class="absolute right-3 top-1/2 -translate-y-1/2 size-5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </div>
+      <div class="flex flex-wrap gap-2 pt-2 text-sm">
+        <button data-chip="commit" class="px-3 py-1 rounded-full border border-emerald-300 text-emerald-700 hover:bg-emerald-100">commit</button>
+        <button data-chip="branch" class="px-3 py-1 rounded-full border border-emerald-300 text-emerald-700 hover:bg-emerald-100">branch</button>
+        <button data-chip="merge" class="px-3 py-1 rounded-full border border-emerald-300 text-emerald-700 hover:bg-emerald-100">merge</button>
+        <button data-chip="stash" class="px-3 py-1 rounded-full border border-emerald-300 text-emerald-700 hover:bg-emerald-100">stash</button>
+        <button data-chip="rebase" class="px-3 py-1 rounded-full border border-emerald-300 text-emerald-700 hover:bg-emerald-100">rebase</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8 space-y-8">
+    <!-- INTRO -->
+    <section class="bg-white/80 rounded-2xl border border-emerald-100 shadow-sm p-6">
+      <h2 class="text-emerald-700 text-xl font-semibold">Como pensar Git</h2>
+      <p class="mt-2">Git é um <strong>sistema de controle de versões distribuído</strong>. Você cria <em>commits</em> (fotinhos do seu código), organiza em <em>branches</em> (linhas do tempo), e compartilha com <em>remotes</em> (servidores como GitHub/GitLab).</p>
+      <div class="grid md:grid-cols-3 gap-4 mt-4">
+        <div class="rounded-xl border border-emerald-100 p-4 bg-emerald-50">
+          <p class="text-sm uppercase text-emerald-700 font-semibold">Fluxo rápido</p>
+          <p class="mt-1 code">git init → git add → git commit → git branch → git checkout -b → git push</p>
+        </div>
+        <div class="rounded-xl border border-emerald-100 p-4">
+          <p class="text-sm uppercase text-emerald-700 font-semibold">Dica</p>
+          <p>Commits pequenos e mensagens claras ajudam no <span class="kbd">git blame</span> e revisões.</p>
+        </div>
+        <div class="rounded-xl border border-emerald-100 p-4">
+          <p class="text-sm uppercase text-emerald-700 font-semibold">Segurança</p>
+          <p>Antes de comandos destrutivos, crie um <em>backup branch</em> e use <span class="kbd">git reflog</span> para recuperar.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHEATSHEET / CARDS -->
+    <section id="cheatsheet" class="space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-emerald-700 text-xl font-semibold">Cheat‑sheet de Comandos</h2>
+        <div class="text-sm text-slate-600">Clique em um card para expandir exemplos.</div>
+      </div>
+      <div id="cards" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Template via JS -->
+      </div>
+    </section>
+
+    <!-- FLUXOS PRONTOS -->
+    <section class="bg-white/80 rounded-2xl border border-emerald-100 shadow-sm p-6">
+      <h2 class="text-emerald-700 text-xl font-semibold">Fluxos rápidos (copiar e colar)</h2>
+      <div class="grid md:grid-cols-3 gap-4 mt-4">
+        <div class="border rounded-xl p-4">
+          <p class="font-semibold mb-2">Primeiro commit</p>
+          <pre class="code text-sm bg-slate-900 text-emerald-100 rounded-lg p-3 overflow-x-auto"><code>git init
+git add .
+git commit -m "feat: primeiro commit"
+# conectar ao remoto
+git remote add origin &lt;URL&gt;
+git branch -M main
+git push -u origin main</code></pre>
+          <button class="copy btn px-3 py-1.5 mt-2 rounded-lg bg-emerald-600 text-white accent">Copiar</button>
+        </div>
+        <div class="border rounded-xl p-4">
+          <p class="font-semibold mb-2">Nova feature em branch</p>
+          <pre class="code text-sm bg-slate-900 text-emerald-100 rounded-lg p-3 overflow-x-auto"><code>git checkout -b feature/minha-ideia
+# edite arquivos
+git add -A
+git commit -m "feat: implementa minha ideia"
+# atualize a partir do remoto (safe)
+git fetch origin
+git merge origin/main
+# abra PR no provedor</code></pre>
+          <button class="copy btn px-3 py-1.5 mt-2 rounded-lg bg-emerald-600 text-white accent">Copiar</button>
+        </div>
+        <div class="border rounded-xl p-4">
+          <p class="font-semibold mb-2">Atualizar fork/local</p>
+          <pre class="code text-sm bg-slate-900 text-emerald-100 rounded-lg p-3 overflow-x-auto"><code># adicionar remoto upstream (uma vez)
+git remote add upstream &lt;URL-ORIGINAL&gt;
+# buscar e rebasear em main
+git fetch upstream
+git checkout main
+git rebase upstream/main
+# envie sua main atualizada
+git push -f origin main  # só em branches suas</code></pre>
+          <button class="copy btn px-3 py-1.5 mt-2 rounded-lg bg-emerald-600 text-white accent">Copiar</button>
+        </div>
+      </div>
+      <p class="text-xs text-slate-600 mt-3">⚠️ Use <span class="kbd">push -f</span> apenas em branches suas (nunca em main de time).</p>
+    </section>
+
+    <!-- MINI QUIZ -->
+    <section id="quiz" class="bg-white/80 rounded-2xl border border-emerald-100 shadow-sm p-6">
+      <h2 class="text-emerald-700 text-xl font-semibold">Mini‑quiz relâmpago</h2>
+      <div class="mt-3 grid gap-4 md:grid-cols-2">
+        <div class="border rounded-xl p-4">
+          <p class="font-medium">1) Qual comando mostra mudanças ainda não commitadas?</p>
+          <div class="mt-2 space-y-1">
+            <label class="flex items-center gap-2"><input type="radio" name="q1" value="status"> <span>git status</span></label>
+            <label class="flex items-center gap-2"><input type="radio" name="q1" value="log"> <span>git log</span></label>
+            <label class="flex items-center gap-2"><input type="radio" name="q1" value="clone"> <span>git clone</span></label>
+          </div>
+        </div>
+        <div class="border rounded-xl p-4">
+          <p class="font-medium">2) Para criar e já mudar para uma branch:</p>
+          <div class="mt-2 space-y-1">
+            <label class="flex items-center gap-2"><input type="radio" name="q2" value="checkout-b"> <span>git checkout -b nome</span></label>
+            <label class="flex items-center gap-2"><input type="radio" name="q2" value="branch"> <span>git branch nome</span></label>
+            <label class="flex items-center gap-2"><input type="radio" name="q2" value="switch"> <span>git switch</span></label>
+          </div>
+        </div>
+        <div class="border rounded-xl p-4">
+          <p class="font-medium">3) Qual opção volta o arquivo do índice/HEAD sem perder histórico?</p>
+          <div class="mt-2 space-y-1">
+            <label class="flex items-center gap-2"><input type="radio" name="q3" value="reset-hard"> <span>git reset --hard</span></label>
+            <label class="flex items-center gap-2"><input type="radio" name="q3" value="restore"> <span>git restore --source=HEAD</span></label>
+            <label class="flex items-center gap-2"><input type="radio" name="q3" value="rm"> <span>git rm --cached</span></label>
+          </div>
+        </div>
+        <div class="border rounded-xl p-4">
+          <p class="font-medium">4) Como ver commits perdidos ou estados antigos?</p>
+          <div class="mt-2 space-y-1">
+            <label class="flex items-center gap-2"><input type="radio" name="q4" value="reflog"> <span>git reflog</span></label>
+            <label class="flex items-center gap-2"><input type="radio" name="q4" value="fetch"> <span>git fetch</span></label>
+            <label class="flex items-center gap-2"><input type="radio" name="q4" value="tag"> <span>git tag</span></label>
+          </div>
+        </div>
+      </div>
+      <button id="checkQuiz" class="mt-4 px-4 py-2 rounded-lg bg-emerald-600 text-white">Verificar</button>
+      <p id="quizResult" class="mt-3 font-medium"></p>
+    </section>
+
+    <!-- GLOSSÁRIO RÁPIDO -->
+    <section class="bg-white/80 rounded-2xl border border-emerald-100 shadow-sm p-6">
+      <h2 class="text-emerald-700 text-xl font-semibold">Glossário rápido</h2>
+      <ul class="list-disc pl-6 mt-2 space-y-1">
+        <li><strong>Commit</strong>: snapshot de mudanças com mensagem.</li>
+        <li><strong>Branch</strong>: linha do tempo paralela de commits.</li>
+        <li><strong>Remote</strong>: repositório hospedado (GitHub/GitLab/Bitbucket).</li>
+        <li><strong>HEAD</strong>: ponteiro para o commit atual/branch atual.</li>
+        <li><strong>Índice</strong> (staging area): área intermediária antes do commit.</li>
+      </ul>
+    </section>
+
+    <section class="text-sm text-slate-600">
+      <p>💡 Dica extra: configure seu nome e e‑mail uma vez: <span class="code">git config --global user.name "Seu Nome"</span> e <span class="code">git config --global user.email "voce@example.com"</span>.</p>
+    </section>
+  </main>
+
+ 
+  <script>
+    // Dark/Light mode toggle (classe do Tailwind)
+    const html = document.documentElement;
+    const modeBtn = document.getElementById('modeBtn');
+    let dark = false;
+    modeBtn.addEventListener('click', ()=>{
+      dark = !dark;
+      if(dark){ html.classList.add('dark'); document.body.className = 'dark bg-slate-900 text-slate-100'; modeBtn.textContent = '☀️ Modo claro'; }
+      else { html.classList.remove('dark'); document.body.className = 'bg-gradient-to-b from-emerald-50 to-white text-slate-800'; modeBtn.textContent = '🌙 Modo escuro'; }
+    });
+
+    // Base de comandos
+    const COMMANDS = [
+      {
+        key:'init', title:'git init', about:'Cria um repositório Git vazio na pasta atual.',
+        usage:['git init'], tips:['Use um arquivo .gitignore desde o início.']
+      },
+      { key:'clone', title:'git clone', about:'Baixa um repositório existente.', usage:['git clone <url>'], tips:['Adicione --depth 1 para clone raso quando só precisa do estado atual.'] },
+      { key:'status', title:'git status', about:'Mostra estado da árvore de trabalho e do índice.', usage:['git status -sb'], tips:['A flag -sb mostra um resumo compacto.'] },
+      { key:'add', title:'git add', about:'Move mudanças para a área de stage.', usage:['git add .','git add <arquivo>'], tips:['Prefira commits menores: selecione arquivos/grupos.'] },
+      { key:'commit', title:'git commit', about:'Cria um snapshot com mensagem.', usage:['git commit -m "feat: mensagem"','git commit -am "fix: rápida"'], tips:['Use mensagens no padrão Conventional Commits.'] },
+      { key:'log', title:'git log', about:'Lista histórico de commits.', usage:['git log --oneline --graph --decorate --all'], tips:['Combine com --since, --author e grep para filtrar.'] },
+      { key:'diff', title:'git diff', about:'Mostra diferenças entre arquivos/commits.', usage:['git diff','git diff --staged'], tips:['Para dois commits: git diff A..B'] },
+      { key:'branch', title:'git branch', about:'Gerencia branches.', usage:['git branch','git branch -m <novo>'], tips:['Use nomes descritivos: feature/, fix/, chore/.'] },
+      { key:'checkout', title:'git checkout / switch', about:'Troca de branch ou restaura arquivos.', usage:['git checkout <branch>','git switch -c <branch>'], tips:['Prefira git switch/git restore para operações modernas.'] },
+      { key:'merge', title:'git merge', about:'Une histórico de uma branch em outra.', usage:['git merge <branch>'], tips:['Resolva conflitos e faça um commit de merge claro.'] },
+      { key:'rebase', title:'git rebase', about:'Reaplica commits, criando histórico linear.', usage:['git rebase main'], tips:['Evite rebase em branches compartilhadas já publicadas.'] },
+      { key:'stash', title:'git stash', about:'Guarda mudanças não commitadas temporariamente.', usage:['git stash','git stash pop'], tips:['Nomeie: git stash push -m "WIP login"'] },
+      { key:'remote', title:'git remote', about:'Gerencia repositórios remotos.', usage:['git remote -v','git remote add origin <url>'], tips:['Use origin para o seu fork e upstream para o repo original.'] },
+      { key:'fetch', title:'git fetch', about:'Busca refs do remoto sem mesclar.', usage:['git fetch --all --prune'], tips:['Combine com git merge ou git rebase.'] },
+      { key:'pull', title:'git pull', about:'Busca e integra (fetch + merge).', usage:['git pull --rebase'], tips:['Use --rebase para evitar merges de progresso.'] },
+      { key:'push', title:'git push', about:'Envia commits para o remoto.', usage:['git push -u origin main'], tips:['-u grava upstream para facilitar pulls/pushes futuros.'] },
+      { key:'tag', title:'git tag', about:'Cria marcas em commits.', usage:['git tag v1.0.0','git push origin --tags'], tips:['Prefira tags anotadas: git tag -a v1.0.0 -m "release"'] },
+      { key:'reset', title:'git reset', about:'Move HEAD/branch (pode descartar).', usage:['git reset --soft HEAD^','git reset --hard HEAD^'], tips:['Cuidado: --hard é destrutivo. Use reflog para recuperar.'] },
+      { key:'restore', title:'git restore', about:'Restaura arquivos do HEAD/commit.', usage:['git restore <arquivo>','git restore --staged <arquivo>'], tips:['Substitui parte do checkout em arquivos.'] },
+      { key:'cherry-pick', title:'git cherry-pick', about:'Aplica um commit específico em outra branch.', usage:['git cherry-pick <hash>'], tips:['Útil para portar um hotfix.'] },
+      { key:'reflog', title:'git reflog', about:'Registro local de movimentos do HEAD.', usage:['git reflog'], tips:['Recupere commits “perdidos” após reset.'] },
+      { key:'config', title:'git config', about:'Define opções do usuário/projeto.', usage:['git config --global user.name "Seu Nome"','git config --global core.editor "code --wait"'], tips:['Use --global para todo o sistema; sem ele, só no repo atual.'] },
+      { key:'ignore', title:'.gitignore', about:'Lista arquivos/padrões ignorados.', usage:['# exemplo\nnode_modules/\n*.log\n.env'], tips:['Adicione antes do primeiro commit.'] },
+    ];
+
+    const cards = document.getElementById('cards');
+    function renderCards(filter=''){
+      cards.innerHTML = '';
+      COMMANDS.filter(c => c.title.toLowerCase().includes(filter) || c.key.includes(filter)).forEach(cmd =>{
+        const el = document.createElement('article');
+        el.className = 'group border border-emerald-100 rounded-2xl bg-white/80 hover:bg-white hover:shadow-md transition overflow-hidden';
+        el.innerHTML = `
+          <button class="w-full text-left p-4 flex items-start gap-3">
+            <span class="mt-1">🧩</span>
+            <div>
+              <h3 class="font-semibold text-emerald-700">${cmd.title}</h3>
+              <p class="text-sm text-slate-600">${cmd.about}</p>
+            </div>
+          </button>
+          <div class="hidden border-t bg-slate-50/60 p-4 space-y-2">
+            <div>
+              <p class="text-sm font-medium">Uso</p>
+              ${cmd.usage.map(u=>`<pre class='code text-sm bg-slate-900 text-emerald-100 rounded-lg p-3 overflow-x-auto'><code>${u.replace(/</g,'&lt;')}</code></pre>`).join('')}
+            </div>
+            <div class="text-sm text-slate-700"><span class="font-medium">Dica: </span>${cmd.tips.join(' ')}</div>
+            <button class="copy px-3 py-1.5 rounded-lg bg-emerald-600 text-white">Copiar tudo</button>
+          </div>`;
+        el.querySelector('button').addEventListener('click', ()=>{
+          el.querySelector('div.hidden').classList.toggle('hidden');
+        });
+        el.querySelector('.copy').addEventListener('click', ()=>{
+          const text = cmd.usage.join('\n');
+          navigator.clipboard.writeText(text);
+          toast('Comandos copiados!');
+        });
+        cards.appendChild(el);
+      });
+    }
+    renderCards();
+
+    // Pesquisa & chips
+    const search = document.getElementById('search');
+    search.addEventListener('input', ()=> renderCards(search.value.trim().toLowerCase()));
+    document.querySelectorAll('[data-chip]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{ search.value = btn.dataset.chip; search.dispatchEvent(new Event('input')); });
+    });
+
+    // Copiar dos fluxos
+    document.querySelectorAll('button.copy').forEach(b=> b.addEventListener('click', ()=>{
+      const pre = b.previousElementSibling.tagName === 'PRE' ? b.previousElementSibling : b.parentElement.querySelector('pre');
+      if(pre){ navigator.clipboard.writeText(pre.innerText.trim()); toast('Copiado!'); }
+    }));
+
+    // Quiz
+    const answers = { q1:'status', q2:'checkout-b', q3:'restore', q4:'reflog' };
+    document.getElementById('checkQuiz').addEventListener('click', ()=>{
+      let score = 0; for(const k in answers){ const sel = document.querySelector(`input[name=${k}]:checked`); if(sel && sel.value===answers[k]) score++; }
+      const msg = score===4? 'Perfeito! 🥳' : score>=2? 'Bom! Continue praticando. 👍' : 'Bora revisar os cards. 📚';
+      document.getElementById('quizResult').textContent = `${msg} (${score}/4)`;
+    });
+
+    // Toast simples
+    function toast(text){
+      const t = document.createElement('div');
+      t.className = 'fixed bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl bg-emerald-600 text-white shadow-lg';
+      t.textContent = text; document.body.appendChild(t);
+      setTimeout(()=>{ t.remove(); }, 1700);
+    }
+  </script>
+</body>
+</html>
